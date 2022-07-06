@@ -2,12 +2,12 @@ import React from "react";
 import { Pressable, View, Text } from "react-native";
 import { ButtonStyled } from "./button.styled";
 
-const Button = ({ children, onPress, mode, style }) => {
+const Button = ({ children, onPress, mode, style, disabled }) => {
   const pressedItem = ({ pressed }) => pressed && ButtonStyled.pressed;
 
   return (
     <View style={style}>
-      <Pressable onPress={onPress} style={pressedItem}>
+      <Pressable onPress={onPress} style={pressedItem} disabled={disabled}>
         <View
           style={[ButtonStyled.button, mode === "flat" && ButtonStyled.flat]}
         >
