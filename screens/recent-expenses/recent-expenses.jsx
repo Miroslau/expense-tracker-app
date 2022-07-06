@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import ExpensesOutput from "../../components/expenses-component/expenses-output/expenses-output";
 import { ExpensesContext } from "../../store/expenses-context";
 import { getDateMinusDays } from "../../util/date";
+import expensesText from "./constants/expenses-text";
 
 const RecentExpenses = () => {
   const expensesCtx = useContext(ExpensesContext);
@@ -16,8 +17,8 @@ const RecentExpenses = () => {
   return (
     <ExpensesOutput
       expenses={recentExpenses}
-      expensesPeriod="Last 7 days"
-      fallBackText="No expenses registered for the last 7 days"
+      expensesPeriod={expensesText.expensesPeriod}
+      fallBackText={expensesText.fallBackText}
     />
   );
 };

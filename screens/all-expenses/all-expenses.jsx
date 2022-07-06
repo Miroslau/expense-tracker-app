@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import ExpensesOutput from "../../components/expenses-component/expenses-output/expenses-output";
 import { ExpensesContext } from "../../store/expenses-context";
+import expensesText from "./constants/expenses-text";
 
 const AllExpenses = () => {
   const expensesCtx = useContext(ExpensesContext);
@@ -8,8 +9,8 @@ const AllExpenses = () => {
   return (
     <ExpensesOutput
       expenses={expensesCtx.expenses}
-      expensesPeriod="Total"
-      fallBackText="No expenses found!"
+      expensesPeriod={expensesText.expensesPeriod}
+      fallBackText={expensesText.fallBackText}
     />
   );
 };
