@@ -1,26 +1,20 @@
 import React from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import ExpensesSummary from "../expenses-summary/expenses-summary";
 import ExpensesList from "../expenses-list/expenses-list";
-import { GlobalStyles } from "../../../constants/styles";
+import { ExpensesOutputStyled } from "./expenses-output.styled";
 
-const ExpensesOutput = ({ expenses, expensesPeriod }) => {
+const ExpensesOutput = ({ expenses, expensesPeriod, fallBackText }) => {
   return (
-    <View style={styles.container}>
+    <View style={ExpensesOutputStyled.container}>
       <ExpensesSummary expenses={expenses} periodName={expensesPeriod} />
-      <ExpensesList expenses={expenses} />
+      {expenses.length > 0 ? (
+        <ExpensesList expenses={expenses} />
+      ) : (
+        <Text style={ExpensesOutputStyled.infoText}>{fallBackText}</Text>
+      )}
     </View>
   );
 };
 
 export default ExpensesOutput;
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 24,
-    paddingTop: 24,
-    paddingBottom: 0,
-    flex: 1,
-    backgroundColor: GlobalStyles.colors.primary700,
-  },
-});
