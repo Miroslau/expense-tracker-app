@@ -6,6 +6,7 @@ import { ExpensesContext } from "../../store/expenses-context";
 import { ManageExpenseStyled } from "./manage-expense.styled";
 import ManageForm from "../../components/expenses-component/expense-manage/manage-form/manage-form";
 import configurationInput from "./configuration/configurationInput";
+import { deleteExpense, storeExpense, updateExpense } from "../../util/http";
 
 const ManageExpense = ({ route, navigation }) => {
   const expensesCtx = useContext(ExpensesContext);
@@ -17,18 +18,21 @@ const ManageExpense = ({ route, navigation }) => {
     ({ id }) => id === editedExpenseId
   );
 
-  const deleteExpense = () => {
+  const deleteExpenseHandler = async () => {
+    await deleteExpense(editedExpenseId);
     expensesCtx.deleteExpense(editedExpenseId);
     navigation.goBack();
   };
 
   const cancelHandler = () => navigation.goBack();
 
-  const confirmHandler = (expense) => {
+  const confirmHandler = async (expense) => {
     if (isEditing) {
       expensesCtx.updateExpense(editedExpenseId, expense);
+      await updateExpense(editedExpenseId, expense);
     } else {
-      expensesCtx.addExpense(expense);
+      const id = await storeExpense(expense);
+      expensesCtx.addExpense({ ...expense, id: id });
     }
     navigation.goBack();
   };
@@ -54,7 +58,7 @@ const ManageExpense = ({ route, navigation }) => {
             icon="trash"
             color={GlobalStyles.colors.error500}
             size={24}
-            onPress={deleteExpense}
+            onPress={deleteExpenseHandler}
           />
         </View>
       )}
