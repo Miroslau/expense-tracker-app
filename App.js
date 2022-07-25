@@ -5,6 +5,7 @@ import { GlobalStyles } from "./constants/styles";
 
 import ExpensesContextProvider from "./store/expenses-context";
 import MAIN_SCREEN from "./util/stack-screens";
+import AuthContextProvider from "./store/auth-context";
 
 const Stack = createNativeStackNavigator();
 
@@ -13,25 +14,27 @@ export default function App() {
     <>
       <StatusBar style="light" />
       <ExpensesContextProvider>
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerStyle: {
-                backgroundColor: GlobalStyles.colors.primary500,
-              },
-              headerTintColor: GlobalStyles.colors.white,
-            }}
-          >
-            {MAIN_SCREEN.map((screen) => (
-              <Stack.Screen
-                key={screen.name}
-                name={screen.name}
-                options={screen.options}
-                component={screen.component}
-              />
-            ))}
-          </Stack.Navigator>
-        </NavigationContainer>
+        <AuthContextProvider>
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{
+                headerStyle: {
+                  backgroundColor: GlobalStyles.colors.primary500,
+                },
+                headerTintColor: GlobalStyles.colors.white,
+              }}
+            >
+              {MAIN_SCREEN.map((screen) => (
+                <Stack.Screen
+                  key={screen.name}
+                  name={screen.name}
+                  options={screen.options}
+                  component={screen.component}
+                />
+              ))}
+            </Stack.Navigator>
+          </NavigationContainer>
+        </AuthContextProvider>
       </ExpensesContextProvider>
     </>
   );
