@@ -1,7 +1,7 @@
 import RecentExpenses from "../screens/recent-expenses/recent-expenses";
 import { Ionicons } from "@expo/vector-icons";
 import AllExpenses from "../screens/all-expenses/all-expenses";
-import Home from "../screens/home/home";
+import WelcomeScreen from "../screens/welcome-screen/welcome-screen";
 
 const BOTTOM_SCREEN = [
   {
@@ -27,8 +27,8 @@ const BOTTOM_SCREEN = [
     },
   },
   {
-    component: Home,
-    name: "HomeScreen",
+    component: WelcomeScreen,
+    name: "WelcomeScreen",
     options: {
       title: "Home",
       tabBarLabel: "Home",
