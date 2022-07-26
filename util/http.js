@@ -1,17 +1,19 @@
 import axios from "axios";
 import { BACKEND_URL } from "@env";
 
-export const storeExpense = async (expenseData) => {
+export const storeExpense = async (expenseData, token) => {
   const { data } = await axios.post(
-    `${BACKEND_URL}/expenses.json`,
+    `${BACKEND_URL}/expenses.json?auth=${token}`,
     expenseData
   );
   const id = data.name;
   return id;
 };
 
-export const fetchExpenses = async () => {
-  const { data } = await axios.get(`${BACKEND_URL}/expenses.json`);
+export const fetchExpenses = async (token) => {
+  const { data } = await axios.get(
+    `${BACKEND_URL}/expenses.json?auth=${token}`
+  );
 
   const expenses = [];
 
@@ -28,10 +30,13 @@ export const fetchExpenses = async () => {
   return expenses;
 };
 
-export const updateExpense = (id, expenseData) => {
-  return axios.put(`${BACKEND_URL}/expenses/${id}.json`, expenseData);
+export const updateExpense = (id, expenseData, token) => {
+  return axios.put(
+    `${BACKEND_URL}/expenses/${id}.json?auth=${token}`,
+    expenseData
+  );
 };
 
-export const deleteExpense = (id) => {
-  return axios.delete(`${BACKEND_URL}/expenses/${id}.json`);
+export const deleteExpense = (id, token) => {
+  return axios.delete(`${BACKEND_URL}/expenses/${id}.json?auth=${token}`);
 };
