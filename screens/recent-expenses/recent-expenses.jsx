@@ -6,16 +6,21 @@ import expensesText from "./constants/expenses-text";
 import { fetchExpenses } from "../../util/http";
 import LoadingOverlay from "../../components/ui/loading-overlay/loading-overlay";
 import ErrorOverlay from "../../components/ui/error-overlay/error-overlay";
+import { AuthContext } from "../../store/auth-context";
 
 const RecentExpenses = () => {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
   const expensesCtx = useContext(ExpensesContext);
+  const authCtx = useContext(AuthContext);
+
+  const { token } = authCtx;
 
   const getExpenses = async () => {
     setLoading(true);
     try {
-      const expenses = await fetchExpenses();
+      const expenses = await fetchExpenses(token);
       expensesCtx.setExpenses(expenses);
     } catch (error) {
       setError("Could not fetch expenses!");
@@ -25,7 +30,7 @@ const RecentExpenses = () => {
 
   useEffect(() => {
     getExpenses();
-  }, []);
+  }, [token]);
 
   const recentExpenses = expensesCtx.expenses.filter((expense) => {
     const nowDay = new Date();

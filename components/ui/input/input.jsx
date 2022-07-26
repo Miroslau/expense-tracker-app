@@ -28,6 +28,7 @@ const Input = ({
       <TextInput
         {...textInputConfig}
         style={inputStyles}
+        autoCapitalize="none"
         onChangeText={onChangeText}
         value={value}
       />
